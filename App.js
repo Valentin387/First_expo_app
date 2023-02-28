@@ -13,7 +13,7 @@ export default function App() {
 
   // Fill the matrix with random numbers
   const randomize_matrix = () => {
-    const newMatrix=[];
+    let newMatrix=[];
     for (let i = 0; i < numRows; i++) {
       const row = []
       for (let j = 0; j < numCols; j++) {
@@ -31,6 +31,31 @@ export default function App() {
       </Text>
     </View>
   );
+
+  
+  const increaseCols = () =>{
+    if (numCols < 4){
+      setNumCols(numCols+1);
+    }
+  };
+
+  const decreaseCols = () =>{
+    if (numCols > 0){
+      setNumCols(numCols-1);
+    }
+  };
+
+  const increaseRows = () =>{
+    if (numRows < 4){
+      setNumRows(numRows+1);
+    }
+  };
+
+  const decreaseRows = () =>{
+    if (numRows > 0){
+      setNumRows(numRows-1);
+    } 
+  };
 
   return (
     <View style={styles.container}>
@@ -54,19 +79,42 @@ export default function App() {
       </View>
       <View style={styles.container02}>
 
+        
         <View style={styles.counter}>
+          <Text>Rows</Text>
+          <Button
+              onPress={increaseRows}
+              title="UP"
+              accessibilityLabel="Increase Rows"
+            />
           <Text>{numRows}</Text>
+          <Button
+              onPress={decreaseRows}
+              title="Down"
+              accessibilityLabel="Decrease cols"
+            />
         </View>
 
         <View style={styles.counter}>
+        <Text>Columns</Text>
+          <Button
+              onPress={increaseCols}
+              title="UP"
+              accessibilityLabel="Increase cols"
+            />
           <Text>{numCols}</Text>
+          <Button
+              onPress={decreaseCols}
+              title="Down"
+              accessibilityLabel="Decrease cols"
+            />
         </View>
 
         <View style={styles.counter}>
           <Button
               onPress={randomize_matrix}
               title="New"
-              /*color="#841584"*/
+              
               accessibilityLabel="Create new instance of game"
           />
         </View>

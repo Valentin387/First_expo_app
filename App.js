@@ -1,26 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Text, StyleSheet, View, Image } from 'react-native';
+import React, { useState } from 'react';
 
 const PlaceholderImage = require('./assets/images/samurai01.png');
 
 export default function App() {
 
+  const numRows=4;
+  const numCols=4;
+  const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(6)));
+
+  const renderItem = ({ item }) => (
+    <View style={styles.cell}>
+      <Text style={styles.author}>
+        { item }
+      </Text>
+    </View>
+  );
+
+
+
   return (
     <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image source={PlaceholderImage} style={styles.image} />
+      <View style={styles.imageContainer}>
+        <Image source={PlaceholderImage} style={styles.image} />
       </View>
       
       <View style={styles.TableContainer}>
         <FlatList
-          data={data}
+          data={matrix}
+          keyExtractor={(item,index)=> index.toString()}
           renderItem={({ item }) => (
-            <View style={styles.item}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.author}>{item.author}</Text>
-            </View>
+            <FlatList
+              data={item}
+              keyExtractor={(cell, index)=>index.toString()}
+              horizontal={true}
+              renderItem={renderItem}
+            />
           )}
-          keyExtractor={(item) => item.id.toString()}
         />
       </View>
       
@@ -39,6 +56,7 @@ const data = [
 ];
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -60,6 +78,17 @@ const styles = StyleSheet.create({
     width: 200,
     height: 400,
     borderRadius: 18,
+    alignContent: 'center'
+  },
+
+  cell: {
+    borderWidth: 1,
+    borderColor: '#000',
+    padding: 10,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   item: {

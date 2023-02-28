@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Text, StyleSheet, View, Image } from 'react-native';
+import { FlatList, Text, StyleSheet, View, Image, Button } from 'react-native';
 import React, { useState } from 'react';
 
 const PlaceholderImage = require('./assets/images/samurai01.png');
 
 export default function App() {
 
-  const numRows=4;
+  const numRows=3;
   const numCols=4;
-  const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(1)));
+  const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(0)));
 
   // Fill the matrix with random numbers
   const randomize_matrix = () => {
@@ -23,7 +23,7 @@ export default function App() {
 
   const renderItem = ({ item }) => (
     <View style={styles.cell}>
-      <Text style={styles.author}>
+      <Text style={styles.number}>
         { item }
       </Text>
     </View>
@@ -47,6 +47,14 @@ export default function App() {
               renderItem={renderItem}
             />
           )}
+        />
+      </View>
+      <View style={styles.button}>
+        <Button
+            onPress={randomize_matrix}
+            title="New"
+            /*color="#841584"*/
+            accessibilityLabel="Create new instance of game"
         />
       </View>
       
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 3,
     width: 280,
     height: 700,
-    borderRadius: 18,
+    borderRadius: 15,
     alignContent: 'center'
   },
 
@@ -92,10 +100,22 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  author: {
+  number: {
     fontSize: 40,
     /*fontWeight: 'bold',*/
     color: '#000',
+  },
+
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 1,
+    elevation: 1,
+    color: "#841584",
+    backgroundColor: 'black',
   },
 });
 

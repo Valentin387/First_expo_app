@@ -8,7 +8,18 @@ export default function App() {
 
   const numRows=4;
   const numCols=4;
-  const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(6)));
+  const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(1)));
+
+  // Fill the matrix with random numbers
+  const randomize_matrix = () => {
+    const newMatrix=[...matrix];
+    for (let i = 0; i < numRows; i++) {
+      for (let j = 0; j < numCols; j++) {
+        newMatrix[i][j] = Math.floor(Math.random() * 10); // Generate a random number between 0 and 99
+      }
+    }
+    setMatrix(newMatrix)
+  }
 
   const renderItem = ({ item }) => (
     <View style={styles.cell}>
@@ -17,8 +28,6 @@ export default function App() {
       </Text>
     </View>
   );
-
-
 
   return (
     <View style={styles.container}>
@@ -47,19 +56,11 @@ export default function App() {
   
 }
 
-const data = [
-  { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' },
-  { id: 2, title: 'To Kill a Mockingbird', author: 'Harper Lee' },
-  { id: 3, title: '1984', author: 'George Orwell' },
-  { id: 4, title: 'Pride and Prejudice', author: 'Jane Austen' },
-  { id: 5, title: 'The Catcher in the Rye', author: 'J.D. Salinger' },
-];
 
 const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    flexDirection: 'column',
     backgroundColor: '#f0f8ff',
     alignItems: 'center',
   },
@@ -75,34 +76,25 @@ const styles = StyleSheet.create({
 
   TableContainer: {
     flex: 3,
-    width: 200,
-    height: 400,
+    width: 280,
+    height: 700,
     borderRadius: 18,
     alignContent: 'center'
   },
 
   cell: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#000',
     padding: 10,
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 90,
     justifyContent: 'center',
     alignItems: 'center'
   },
 
-  item: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#999'
-  },
   author: {
-    fontSize: 16,
+    fontSize: 40,
+    /*fontWeight: 'bold',*/
     color: '#000',
   },
 });

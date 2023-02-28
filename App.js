@@ -13,11 +13,13 @@ export default function App() {
 
   // Fill the matrix with random numbers
   const randomize_matrix = () => {
-    const newMatrix=[...matrix];
+    const newMatrix=[];
     for (let i = 0; i < numRows; i++) {
+      const row = []
       for (let j = 0; j < numCols; j++) {
-        newMatrix[i][j] = Math.floor(Math.random() * 10); // Generate a random number between 0 and 99
+        row[j] = Math.floor(Math.random() * 10); // Generate a random number between 0 and 99
       }
+      newMatrix.push(row)
     }
     setMatrix(newMatrix)
   }
@@ -50,13 +52,13 @@ export default function App() {
           )}
         />
       </View>
-      <View style={styles.menu01}>
+      <View style={styles.container02}>
 
-        <View>
+        <View style={styles.counter}>
           <Text>a</Text>
         </View>
 
-        <View>
+        <View style={styles.counter}>
           <Text>b</Text>
         </View>
 
@@ -112,22 +114,27 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
+  counter: {
+    borderWidth: 2,
+    borderColor: '#000',
+    padding: 10,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
   number: {
     fontSize: 40,
     /*fontWeight: 'bold',*/
     color: '#000',
   },
 
-  menu01: {
-    flex: 2,
+  container02: {
+    flex: 1,
     flexDirection: 'row',
+    backgroundColor: '#f0f8ff',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 1,
-    elevation: 1,
-    backgroundColor: '#e0ffff',
   },
 });
 

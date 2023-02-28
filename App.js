@@ -11,7 +11,7 @@ export default function App() {
           <Image source={PlaceholderImage} style={styles.image} />
       </View>
       
-      <View>
+      <View style={styles.TableContainer}>
         <FlatList
           data={data}
           renderItem={({ item }) => (
@@ -41,7 +41,8 @@ const data = [
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    flexDirection: 'column',
+    backgroundColor: '#f0f8ff',
     alignItems: 'center',
   },
   imageContainer: {
@@ -54,6 +55,12 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
 
+  TableContainer: {
+    flex: 3,
+    width: 200,
+    height: 400,
+    borderRadius: 18,
+  },
 
   item: {
     padding: 16,
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
   },
   author: {
     fontSize: 16,
-    color: '#FFF',
+    color: '#000',
   },
 });
 

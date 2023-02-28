@@ -55,14 +55,14 @@ export default function App() {
       <View style={styles.container02}>
 
         <View style={styles.counter}>
-          <Text>a</Text>
+          <Text>{numRows}</Text>
         </View>
 
         <View style={styles.counter}>
-          <Text>b</Text>
+          <Text>{numCols}</Text>
         </View>
 
-        <View>
+        <View style={styles.counter}>
           <Button
               onPress={randomize_matrix}
               title="New"
@@ -115,11 +115,12 @@ const styles = StyleSheet.create({
   },
 
   counter: {
-    borderWidth: 2,
+    flex:1,
+    borderWidth: 1,
     borderColor: '#000',
     padding: 10,
     width: 50,
-    height: 50,
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center'
   },

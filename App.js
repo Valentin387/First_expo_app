@@ -2,12 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { FlatList, Text, StyleSheet, View, Image, Button } from 'react-native';
 import React, { useState } from 'react';
 
+
 const PlaceholderImage = require('./assets/images/samurai01.png');
 
 export default function App() {
 
-  const numRows=3;
-  const numCols=4;
+  const [numRows,setNumRows]=useState(4);
+  const [numCols,setNumCols]=useState(4);
   const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(0)));
 
   // Fill the matrix with random numbers
@@ -49,13 +50,24 @@ export default function App() {
           )}
         />
       </View>
-      <View style={styles.button}>
-        <Button
-            onPress={randomize_matrix}
-            title="New"
-            /*color="#841584"*/
-            accessibilityLabel="Create new instance of game"
-        />
+      <View style={styles.menu01}>
+
+        <View>
+          <Text>a</Text>
+        </View>
+
+        <View>
+          <Text>b</Text>
+        </View>
+
+        <View>
+          <Button
+              onPress={randomize_matrix}
+              title="New"
+              /*color="#841584"*/
+              accessibilityLabel="Create new instance of game"
+          />
+        </View>
       </View>
       
       <StatusBar style="auto" />
@@ -106,16 +118,16 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 
-  button: {
-    flex: 1,
+  menu01: {
+    flex: 2,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 1,
     elevation: 1,
-    color: "#841584",
-    backgroundColor: 'black',
+    backgroundColor: '#e0ffff',
   },
 });
 

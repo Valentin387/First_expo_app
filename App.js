@@ -1,29 +1,36 @@
+//Libraries
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Text, StyleSheet, View, Image, Button } from 'react-native';
 import React, { useState } from 'react';
 
-
+//the image of the Samurai
 const PlaceholderImage = require('./assets/images/samurai01.png');
 
+//The main gateway of the application
 export default function App() {
 
+  //I need to remember the value of how many rows and cols I need
   const [numRows,setNumRows]=useState(4);
   const [numCols,setNumCols]=useState(4);
+  //matrix is an array, setMatrix is the method for updating that array
   const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(0)));
 
   // Fill the matrix with random numbers
   const randomize_matrix = () => {
+    //the easiest way is to create antoher matrix
     let newMatrix=[];
     for (let i = 0; i < numRows; i++) {
       const row = []
       for (let j = 0; j < numCols; j++) {
-        row[j] = Math.floor(Math.random() * 10); // Generate a random number between 0 and 99
+        row[j] = Math.floor(Math.random() * 10); // Generate a random number between 0 and 9
       }
       newMatrix.push(row)
     }
+    //and here we replace the old matrix with the new one
     setMatrix(newMatrix)
   }
 
+  //This function renders each cell, one by one
   const renderItem = ({ item }) => (
     <View style={styles.cell}>
       <Text style={styles.number}>
@@ -32,7 +39,7 @@ export default function App() {
     </View>
   );
 
-  
+  //these are the functions to manage the user input
   const increaseCols = () =>{
     if (numCols < 4){
       setNumCols(numCols+1);
@@ -57,8 +64,10 @@ export default function App() {
     } 
   };
 
+  //this is the return, here we render the page basically
+  //after this point, you simply follow the hierarchy of tags for rendering
   return (
-    <View style={styles.container}>
+    <View style={styles.container}>  
       <View style={styles.imageContainer}>
         <Image source={PlaceholderImage} style={styles.image} />
       </View>
@@ -126,7 +135,7 @@ export default function App() {
   
 }
 
-
+//this is equivalent to a .css file, we define styles for whatever we need
 const styles = StyleSheet.create({
 
   container: {

@@ -1,6 +1,6 @@
 //Libraries
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Text, StyleSheet, View, Image, Button } from 'react-native';
+import { FlatList, Text, StyleSheet, View, Image, Button, Pressable} from 'react-native';
 import React, { useState } from 'react';
 
 //the image of the Samurai
@@ -12,8 +12,13 @@ export default function App() {
   //I need to remember the value of how many rows and cols I need
   const [numRows,setNumRows]=useState(4);
   const [numCols,setNumCols]=useState(4);
-  //matrix is an array, setMatrix is the method for updating that array
+  //Note: matrix is an array, setMatrix is the method for updating that array
+  //matrix is the game matrix
   const [matrix,setMatrix]=useState(Array(numRows).fill(Array(numCols).fill(0)));
+  //the digists selected by the user
+  const [selectedItems,setSelectedItems]=useState([]);
+  //the Sum of the selection
+  const [sumDigits, setSumDigits]=useState(0);
 
   // Fill the matrix with random numbers
   const randomize_matrix = () => {
@@ -28,16 +33,33 @@ export default function App() {
     }
     //and here we replace the old matrix with the new one
     setMatrix(newMatrix)
+    reset_count();
   }
 
-  //This function renders each cell, one by one
+  //function that resets the user selection
+  const reset_count = () => {
+    let newSelectedItems=[];
+    setSelectedItems(newSelectedItems);
+    setSumDigits(0);
+  }
+
+  //This function renders each cell of the matrix, one by one
   const renderItem = ({ item }) => (
-    <View style={styles.cell}>
+    <Pressable
+      onPress={() => handlePressIn(item)}
+      style={styles.cell}
+      >
       <Text style={styles.number}>
         { item }
       </Text>
-    </View>
+    </Pressable>
   );
+
+  //this functions adds an element to the list of selected items
+  const handlePressIn = (item) => {
+    setSelectedItems([...selectedItems, item]);
+    setSumDigits(sumDigits+item);
+  };
 
   //these are the functions to manage the user input
   const increaseCols = () =>{
@@ -64,8 +86,9 @@ export default function App() {
     } 
   };
 
-  //this is the return, here we render the page basically
+  //this is the return, here we render the whole game/page
   //after this point, you simply follow the hierarchy of tags for rendering
+  //for rendering the matrix, we use 2 FlatList's
   return (
     <View style={styles.container}>  
       <View style={styles.imageContainer}>
@@ -86,6 +109,13 @@ export default function App() {
           )}
         />
       </View>
+
+      <View style={styles.container02}>
+        <Text style={styles.number02}>{selectedItems.join('+')}</Text>
+        <Text style={styles.number02}> = {sumDigits}</Text>
+      </View>
+
+
       <View style={styles.container02}>
 
         
@@ -118,14 +148,20 @@ export default function App() {
               accessibilityLabel="Decrease cols"
             />
         </View>
-
+        
         <View style={styles.counter}>
           <Button
               onPress={randomize_matrix}
               title="New"
-              
               accessibilityLabel="Create new instance of game"
           />
+          
+          <Button
+              onPress={reset_count}
+              title="Clear selection"
+              accessibilityLabel="Reset user selection"
+          />
+          
         </View>
       </View>
       
@@ -184,6 +220,12 @@ const styles = StyleSheet.create({
 
   number: {
     fontSize: 40,
+    /*fontWeight: 'bold',*/
+    color: '#000',
+  },
+
+  number02: {
+    fontSize: 18,
     /*fontWeight: 'bold',*/
     color: '#000',
   },
